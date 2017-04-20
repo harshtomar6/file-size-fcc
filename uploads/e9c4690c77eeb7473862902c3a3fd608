@@ -1,0 +1,37 @@
+;To convert lowercae to uppercase
+.model small
+.stack
+.data
+    arr db 12, 13, 14, "$"
+    len dw ($-arr)/2
+    largest db ?
+    msg db "WORKED$" 
+.code
+    start:
+    mov ax, @data
+    mov ds, ax
+    
+    mov cx, len
+    mov bx, offset arr
+    large: mov al, [bx]
+    
+    again: inc bx
+        cmp al, [bx]
+        ja large
+        dec cx
+        jnz again
+       
+    mov largest, al
+   
+    cmp largest, 12
+    je print
+    jne exit 
+    
+    print:
+        mov dx, offset msg
+        mov ah, 09h
+        int 21h
+    exit:
+    mov ah, 4ch
+    int 21h
+end start

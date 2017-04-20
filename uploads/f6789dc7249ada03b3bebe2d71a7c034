@@ -1,0 +1,37 @@
+.model small
+.stack
+.data
+    msg db "Enter your name $"
+    msg2 db "Welcome $"
+    msg3 db 26
+         db ?
+         db 26 dup(0)
+.code
+start:
+    mov ax, @data
+    mov ds, ax
+    
+    lea dx, msg
+    mov ah, 09h
+    int 21h
+    
+    lea dx, msg3
+    mov ah, 0ah
+    int 21h
+    
+    mov si, offset msg3 + 1 ;NUMBER OF CHARACTERS ENTERED.
+    mov cl, [ si ] ;MOVE LENGTH TO CL.
+    mov ch, 0      ;CLEAR CH TO USE CX. 
+    inc cx ;TO REACH CHR(13).
+    add si, cx ;NOW SI POINTS TO CHR(13).
+    mov al, '$'
+    mov [ si ], al ;REPLACE CHR(13) BY '$'.
+    
+    mov ah, 09h
+    mov dx, offset msg3+2
+    int 21h
+    
+    mov ah, 4ch
+    int 21h
+    
+end start

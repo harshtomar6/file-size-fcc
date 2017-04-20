@@ -1,0 +1,22 @@
+.model small
+.stack
+.data
+    num1 db 12h
+    num2 db 23h
+    ans db ?
+.code
+start:
+    mov ax, @data
+    mov ds, ax
+    
+    mov al, num1
+    add al, num2
+    mov ans, al
+    
+    mov dx, offset ans
+    mov ah, 09h
+    int 21h
+    
+    mov ah, 4ch
+    int 21h
+end start
